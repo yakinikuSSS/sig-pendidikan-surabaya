@@ -186,13 +186,13 @@
         "Total Sekolah": 58,
         "Jumlah Siswa SD": 2491,
         "Jumlah Siswa SMP": 4537,
-        "Jumlah Siswa SMA": 633,
-        "Total Siswa": 7661,
+        "Jumlah Siswa SMA": 2757,
+        "Total Siswa": 9785,
         "Jumlah Guru SD": 509,
         "Jumlah Guru SMP": 280,
         "Jumlah Guru SMA": 179,
         "Total Guru": 968,
-        "Beban Kerja": 7.914256198347108
+        "Beban Kerja": 10.118801652892561
     },
     "Simokerto": {
         "Jumlah Sekolah SD": 24,
@@ -284,7 +284,7 @@
         "Total Guru": 627,
         "Beban Kerja": 16.982456140350877
     },
-    "Tegal Sari": {
+    "Tegalsari": {
         "Jumlah Sekolah SD": 30,
         "Jumlah Sekolah SMP": 8,
         "Jumah Sekolah SMA": 4,
@@ -299,7 +299,7 @@
         "Total Guru": 699,
         "Beban Kerja": 17.313304721030043
     },
-    "Sambi Kerep": {
+    "Sambikerep": {
         "Jumlah Sekolah SD": 21,
         "Jumlah Sekolah SMP": 19,
         "Jumah Sekolah SMA": 14,
@@ -359,7 +359,7 @@
         "Total Guru": 418,
         "Beban Kerja": 16.0311004784689
     },
-    "Karang Pilang": {
+    "Karangpilang": {
         "Jumlah Sekolah SD": 15,
         "Jumlah Sekolah SMP": 8,
         "Jumah Sekolah SMA": 5,

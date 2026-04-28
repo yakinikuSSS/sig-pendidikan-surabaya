@@ -11,10 +11,9 @@ export default function MapView() {
     const [pendudukData, setPendudukData] = useState<any>({});
     const [selected, setSelected] = useState<any>(null);
     const [activeMetric, setActiveMetric] = useState<string>("beban");
-    const [penduduk, setPenduduk] = useState<any>({});
 
     useEffect(() => {
-        fetch("data/surabaya_kecamatan.geojson")
+        fetch("/data/surabaya_kecamatan.geojson")
             .then((res) => res.json())
             .then((data: FeatureCollection) => {
                 setGeoData(data);
@@ -23,7 +22,7 @@ export default function MapView() {
 
     useEffect(() => {
         fetch("/data/data_persebaran_pendidikan.json")
-            .then(res => res.json())
+            .then(res => res.json())   
             .then(data => setPendidikan(data));
     }, []);
 
@@ -31,12 +30,6 @@ export default function MapView() {
         fetch("/data/data_umur.json")
             .then(res => res.json())
             .then(data => setPendudukData(data));
-    }, []);
-
-    useEffect(() => {
-        fetch("/data/data_penduduk.json")
-            .then(res => res.json())
-            .then(data => setPenduduk(data));
     }, []);
 
     const onEachFeature = (feature: any, layer: any) => {
@@ -101,7 +94,7 @@ export default function MapView() {
 
     const getValue = (nama: string) => {
         const data = pendidikan[nama];
-        if (!data) return 0;
+        const penduduk = pendudukData[nama];
 
         switch (activeMetric) {
             case "beban":
@@ -109,8 +102,8 @@ export default function MapView() {
 
             case "pemerataan":
                 const siswa = data["Total Siswa"];
-                const penduduk = pendudukData[nama]?.Total || 1;
-                return siswa / penduduk;
+                const totalPenduduk = penduduk?.Total || 1;
+                return siswa / totalPenduduk;
 
             case "sd":
                 return data["Jumlah Sekolah SD"];
@@ -122,13 +115,13 @@ export default function MapView() {
                 return data["Jumlah Sekolah SMA"];
             
             case "pemerataanSd":
-                return data["Jumlah Siswa SD"] / (penduduk[nama]?.SD || 1);
+                return data["Jumlah Siswa SD"] / (pendudukData[nama]?.SD || 1);
 
             case "pemerataanSmp":
-                return data["Jumlah Siswa SMP"] / (penduduk[nama]?.SMP || 1);
+                return data["Jumlah Siswa SMP"] / (pendudukData[nama]?.SMP || 1);
 
             case "pemerataanSma":
-                return data["Jumlah Siswa SMA"] / (penduduk[nama]?.SMA || 1);
+                return data["Jumlah Siswa SMA"] / (pendudukData[nama]?.SMA || 1);
 
             case "guruSd":
                 return data["Jumlah Guru SD"];
@@ -139,64 +132,92 @@ export default function MapView() {
             case "guruSma":
                 return data["Jumlah Guru SMA"];
 
+            case "usiaSd":
+                return penduduk?.SD || 0;
+
+            case "usiaSmp":
+                return penduduk?.SMP || 0;
+
+            case "usiaSma":
+                return penduduk?.SMA || 0;
+
             default:
                 return 0;
         }
     };
 
-    const getColorByMetric = (value: number) => {
-        switch (activeMetric) {
-            case "beban":
-                if (value > 21) return "#08306b";
-                if (value > 19) return "#2171b5";
-                if (value > 17) return "#6baed6";
-                return "#c6dbef";
+const getColorByMetric = (value: number) => {
+    switch (activeMetric) {
+        case "sd":
+            if (value > 45) return "#08306b";
+            if (value > 30) return "#2171b5";
+            if (value > 15) return "#6baed6";
+            return "#c6dbef";
 
-            case "sd":
-                if (value > 30) return "#08306b";
-                if (value > 20) return "#2171b5";
-                if (value > 10) return "#6baed6";
-                return "#c6dbef";
-                
-            case "smp":
-                if (value > 14) return "#08306b";
-                if (value > 10) return "#2171b5";
-                if (value > 6) return "#6baed6";
-                return "#c6dbef";
-                
-            case "sma":
-                if (value > 8) return "#08306b";
-                if (value > 5) return "#2171b5";
-                if (value > 2) return "#6baed6";
-                return "#c6dbef";
+        case "smp":
+            if (value > 18) return "#08306b";
+            if (value > 12) return "#2171b5";
+            if (value > 8) return "#6baed6";
+            return "#c6dbef";
 
-            case "guruSd":
-                if (value > 500) return "#08306b";
-                if (value > 400) return "#2171b5";
-                if (value > 250) return "#6baed6";
-                return "#c6dbef";
+        case "sma":
+            if (value > 15) return "#08306b";
+            if (value > 10) return "#2171b5";
+            if (value > 5) return "#6baed6";
+            return "#c6dbef";
 
-            case "guruSmp":
-            if (value > 250) return "#08306b";
-            if (value > 180) return "#2171b5";
+        case "guruSd":
+            if (value > 600) return "#08306b";
+            if (value > 400) return "#2171b5";
+            if (value > 250) return "#6baed6";
+            return "#c6dbef";
+
+        case "guruSmp":
+            if (value > 300) return "#08306b";
+            if (value > 200) return "#2171b5";
             if (value > 120) return "#6baed6";
             return "#c6dbef";
 
-            case "guruSma":
-                if (value > 200) return "#08306b";
-                if (value > 120) return "#2171b5";
-                if (value > 60) return "#6baed6";
-                return "#c6dbef";
+        case "guruSma":
+            if (value > 400) return "#08306b";
+            if (value > 200) return "#2171b5";
+            if (value > 100) return "#6baed6";
+            return "#c6dbef";
 
-            case "pemerataan":
-                if (value < 0.8) return "#d73027";
-                if (value < 1.2) return "#fee08b";
-                return "#1a9850";
+        case "usiaSd":
+            if (value > 15000) return "#08306b";
+            if (value > 10000) return "#2171b5";
+            if (value > 7000) return "#6baed6";
+            return "#c6dbef";
 
-            default:
-                return "#c6dbef";
-        }
-    };
+        case "usiaSmp":
+            if (value > 7000) return "#08306b";
+            if (value > 5000) return "#2171b5";
+            if (value > 3000) return "#6baed6";
+            return "#c6dbef";
+
+        case "usiaSma":
+            if (value > 7000) return "#08306b";
+            if (value > 5000) return "#2171b5";
+            if (value > 3000) return "#6baed6";
+            return "#c6dbef";
+
+        case "beban":
+            if (value > 20) return "#08306b";
+            if (value > 17) return "#2171b5";
+            if (value > 12) return "#6baed6";
+            return "#c6dbef";
+
+        case "pemerataan":
+            if (value >= 1.1) return "#08306b";
+            if (value > 0.8) return "#2171b5";
+            if (value > 0.6) return "#6baed6";
+            return "#c6dbef";
+
+        default:
+            return "#c6dbef";
+    }
+};
 
     return (
         <>
