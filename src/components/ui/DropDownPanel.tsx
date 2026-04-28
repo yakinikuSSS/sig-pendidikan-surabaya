@@ -64,12 +64,12 @@ export default function DropDownPanel({ setActiveMetric }: Props) {
                             <li style={listItemStyle} onClick={() => setActiveMetric("usiaSd")}>Jumlah Penduduk Usia 7-12 tahun</li>
                             <li style={listItemStyle} onClick={() => setActiveMetric("usiaSmp")}>Jumlah Penduduk Usia 13-15 tahun</li>
                             <li style={listItemStyle} onClick={() => setActiveMetric("usiaSma")}>Jumlah Penduduk Usia 16-18 tahun</li>
-                            <li style={listItemStyle} onClick={() => setActiveMetric("sd")}>Jumlah SD</li>
-                            <li style={listItemStyle} onClick={() => setActiveMetric("smp")}>Jumlah SMP</li>
-                            <li style={listItemStyle} onClick={() => setActiveMetric("sma")}>Jumlah SMA</li>
-                            <li style={listItemStyle} onClick={() => setActiveMetric("guruSd")}>Jumlah Guru SD</li>
-                            <li style={listItemStyle} onClick={() => setActiveMetric("guruSmp")}>Jumlah Guru SMP</li>
-                            <li style={listItemStyle} onClick={() => setActiveMetric("guruSma")}>Jumlah Guru SMA</li>
+                            <li style={listItemStyle} onClick={() => setActiveMetric("sd")}>Jumlah SD / MI</li>
+                            <li style={listItemStyle} onClick={() => setActiveMetric("smp")}>Jumlah SMP / MTs</li>
+                            <li style={listItemStyle} onClick={() => setActiveMetric("sma")}>Jumlah SMA / SMK / MA</li>
+                            <li style={listItemStyle} onClick={() => setActiveMetric("guruSd")}>Jumlah Guru SD / MI</li>
+                            <li style={listItemStyle} onClick={() => setActiveMetric("guruSmp")}>Jumlah Guru SMP / MTs</li>
+                            <li style={listItemStyle} onClick={() => setActiveMetric("guruSma")}>Jumlah Guru SMA / SMK / MA</li>
                         </ul>
                     )}
                 </div>
