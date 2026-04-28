@@ -14,7 +14,12 @@ export default function MapView() {
 
     useEffect(() => {
         fetch("/data/surabaya_kecamatan.geojson")
-            .then((res) => res.json())
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`Gagal memuat GeoJSON: ${res.status} ${res.statusText}`);
+                }
+                return res.json();
+            })
             .then((data: FeatureCollection) => {
                 setGeoData(data);
             });
@@ -22,14 +27,35 @@ export default function MapView() {
 
     useEffect(() => {
         fetch("/data/data_persebaran_pendidikan.json")
-            .then(res => res.json())   
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`Gagal memuat data pendidikan: ${res.status} ${res.statusText}`);
+                }
+                return res.json();
+            })
             .then(data => setPendidikan(data));
     }, []);
 
     useEffect(() => {
         fetch("/data/data_umur.json")
-            .then(res => res.json())
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`Gagal memuat data umur: ${res.status} ${res.statusText}`);
+                }
+                return res.json();
+            })
             .then(data => setPendudukData(data));
+    }, []);
+
+    useEffect(() => {
+        fetch("/data/data_penduduk.json")
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`Gagal memuat data penduduk: ${res.status} ${res.statusText}`);
+                }
+                return res.json();
+            })
+            .then(data => setPenduduk(data));
     }, []);
 
     const onEachFeature = (feature: any, layer: any) => {
@@ -113,7 +139,7 @@ export default function MapView() {
 
             case "sma":
                 return data["Jumlah Sekolah SMA"];
-            
+
             case "pemerataanSd":
                 return data["Jumlah Siswa SD"] / (pendudukData[nama]?.SD || 1);
 
@@ -154,11 +180,23 @@ const getColorByMetric = (value: number) => {
             if (value > 15) return "#6baed6";
             return "#c6dbef";
 
-        case "smp":
-            if (value > 18) return "#08306b";
-            if (value > 12) return "#2171b5";
-            if (value > 8) return "#6baed6";
-            return "#c6dbef";
+            case "sd":
+                if (value > 30) return "#08306b";
+                if (value > 20) return "#2171b5";
+                if (value > 10) return "#6baed6";
+                return "#c6dbef";
+
+            case "smp":
+                if (value > 14) return "#08306b";
+                if (value > 10) return "#2171b5";
+                if (value > 6) return "#6baed6";
+                return "#c6dbef";
+
+            case "sma":
+                if (value > 8) return "#08306b";
+                if (value > 5) return "#2171b5";
+                if (value > 2) return "#6baed6";
+                return "#c6dbef";
 
         case "sma":
             if (value > 15) return "#08306b";
@@ -166,17 +204,11 @@ const getColorByMetric = (value: number) => {
             if (value > 5) return "#6baed6";
             return "#c6dbef";
 
-        case "guruSd":
-            if (value > 600) return "#08306b";
-            if (value > 400) return "#2171b5";
-            if (value > 250) return "#6baed6";
-            return "#c6dbef";
-
-        case "guruSmp":
-            if (value > 300) return "#08306b";
-            if (value > 200) return "#2171b5";
-            if (value > 120) return "#6baed6";
-            return "#c6dbef";
+            case "guruSmp":
+                if (value > 250) return "#08306b";
+                if (value > 180) return "#2171b5";
+                if (value > 120) return "#6baed6";
+                return "#c6dbef";
 
         case "guruSma":
             if (value > 400) return "#08306b";
@@ -222,7 +254,7 @@ const getColorByMetric = (value: number) => {
     return (
         <>
             <DropDownPanel setActiveMetric={setActiveMetric} />
-            <InfoPanel selected={selected}/>
+            <InfoPanel selected={selected} />
             <MapContainer center={[-7.27544, 112.74463] as any} zoom={12} zoomControl={false} style={{ height: "100%", width: "100%" }}>
                 <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" attribution="&copy; OpenStreetMap" />
                 {geoData && <GeoJSON key={activeMetric + (selected?.nama || "")} data={geoData} style={style} onEachFeature={onEachFeature} />}
