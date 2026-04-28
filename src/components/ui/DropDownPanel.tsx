@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 interface Props {
-    selected: any;
+    setActiveMetric: (value: string) => void;
 }
 
-export default function DropDownPanel({ selected }: Props) {
+export default function DropDownPanel({ setActiveMetric }: Props) {
     const [isOpen, setIsOpen] = useState(false);
 
     const listItemStyle: React.CSSProperties = {
@@ -15,7 +15,6 @@ export default function DropDownPanel({ selected }: Props) {
         textAlign: "left"
     };
 
-    if (!selected) return null;
 
     return (
         <>
@@ -29,40 +28,48 @@ export default function DropDownPanel({ selected }: Props) {
                 padding: 12,
                 zIndex: 1000,
                 borderRadius: 8,
+                overflow: "visible"
             }}>
-                <h4>Pilih data yang ingin ditampilkan:</h4>
+            <h4>Pilih data yang ingin ditampilkan:</h4>
 
                 <div style={{ fontSize: 14, lineHeight: "20px" }}>
                     <button onClick={() => setIsOpen(!isOpen)}
                         style={{
                             width: "100%",
                             padding: "10px",
+                            paddingLeft: "10px",
                             background: "white",
                             border: "1px solid #ccc",
                             cursor: "pointer",
                             fontWeight: "bold",
-                            display: "felx",
+                            display: "flex",
                             textAlign: "left",
                             justifyContent: "space-between",
                             color: "black"
-                        }}
-                    >
+                        }}>
                         Menu Data {isOpen ? "▲" : "▼"}
                     </button>
                     {isOpen && (
                         <ul style={{
                             listStyle: "none",
                             padding: "0",
-                            margin: "5px 0 0 0"
+                            margin: "5px 0 0 0",
+                            position: "relative",
+                            zIndex: 2000,
+                            background: "white",
+                            border: "1px solid #ccc"
                         }}>
-                            <li style={listItemStyle}>SD Negeri</li>
-                            <li style={listItemStyle}>SD Swasta</li>
-                            <li style={listItemStyle}>SMP Negeri</li>
-                            <li style={listItemStyle}>SMP Swasta</li>
-                            <li style={listItemStyle}>SMA Negeri</li>
-                            <li style={listItemStyle}>SMA Swasta</li>
-                            <li style={listItemStyle}>SMK Negeri</li>
-                            <li style={listItemStyle}>SMK Swasta</li>
+                            <li style={listItemStyle} onClick={() => setActiveMetric("beban")}>Beban Kerja Guru</li>
+                            <li style={listItemStyle} onClick={() => setActiveMetric("pemerataan")}>Pemerataan Pendidikan</li>
+                            <li style={listItemStyle} onClick={() => setActiveMetric("usiaSd")}>Jumlah Penduduk Usia 7-12 tahun</li>
+                            <li style={listItemStyle} onClick={() => setActiveMetric("usiaSmp")}>Jumlah Penduduk Usia 13-15 tahun</li>
+                            <li style={listItemStyle} onClick={() => setActiveMetric("usiaSma")}>Jumlah Penduduk Usia 16-18 tahun</li>
+                            <li style={listItemStyle} onClick={() => setActiveMetric("sd")}>Jumlah SD</li>
+                            <li style={listItemStyle} onClick={() => setActiveMetric("smp")}>Jumlah SMP</li>
+                            <li style={listItemStyle} onClick={() => setActiveMetric("sma")}>Jumlah SMA</li>
+                            <li style={listItemStyle} onClick={() => setActiveMetric("guruSd")}>Jumlah Guru SD</li>
+                            <li style={listItemStyle} onClick={() => setActiveMetric("guruSmp")}>Jumlah Guru SMP</li>
+                            <li style={listItemStyle} onClick={() => setActiveMetric("guruSma")}>Jumlah Guru SMA</li>
                         </ul>
                     )}
                 </div>

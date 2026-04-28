@@ -3,11 +3,15 @@ import { useEffect, useState } from "react";
 import type { FeatureCollection } from "geojson";
 import InfoPanel from "../ui/InfoPanel";
 import DropDownPanel from "../ui/DropDownPanel";
+import { ZoomControl } from "react-leaflet";
 
 export default function MapView() {
     const [geoData, setGeoData] = useState<FeatureCollection | null>(null);
     const [pendidikan, setPendidikan] = useState<any>({});
+    const [pendudukData, setPendudukData] = useState<any>({});
     const [selected, setSelected] = useState<any>(null);
+    const [activeMetric, setActiveMetric] = useState<string>("beban");
+    const [penduduk, setPenduduk] = useState<any>({});
 
     useEffect(() => {
         fetch("data/surabaya_kecamatan.geojson")
@@ -21,6 +25,18 @@ export default function MapView() {
         fetch("/data/data_persebaran_pendidikan.json")
             .then(res => res.json())
             .then(data => setPendidikan(data));
+    }, []);
+
+    useEffect(() => {
+        fetch("/data/data_umur.json")
+            .then(res => res.json())
+            .then(data => setPendudukData(data));
+    }, []);
+
+    useEffect(() => {
+        fetch("/data/data_penduduk.json")
+            .then(res => res.json())
+            .then(data => setPenduduk(data));
     }, []);
 
     const onEachFeature = (feature: any, layer: any) => {
@@ -64,10 +80,11 @@ export default function MapView() {
 
     const style = (feature: any) => {
         const nama = feature.properties.name;
+        const value = getValue(nama);
 
         if (selected && selected.nama === nama) {
             return {
-                fillColor: "#036cff",
+                fillColor: "#b4e0ff",
                 weight: 3,
                 color: "#000",
                 fillOpacity: 0.9
@@ -75,21 +92,120 @@ export default function MapView() {
         }
 
         return {
-            fillColor: "#3388ff",
-            weight: 2,
-            color: "white",
-            fillOpacity: 0.5
+            fillColor: getColorByMetric(value),
+            weight: selected?.nama === nama ? 3 : 2,
+            color: selected?.nama === nama ? "#000" : "white",
+            fillOpacity: 0.7
         };
     };
 
+    const getValue = (nama: string) => {
+        const data = pendidikan[nama];
+        if (!data) return 0;
+
+        switch (activeMetric) {
+            case "beban":
+                return data["Beban Kerja"];
+
+            case "pemerataan":
+                const siswa = data["Total Siswa"];
+                const penduduk = pendudukData[nama]?.Total || 1;
+                return siswa / penduduk;
+
+            case "sd":
+                return data["Jumlah Sekolah SD"];
+
+            case "smp":
+                return data["Jumlah Sekolah SMP"];
+
+            case "sma":
+                return data["Jumlah Sekolah SMA"];
+            
+            case "pemerataanSd":
+                return data["Jumlah Siswa SD"] / (penduduk[nama]?.SD || 1);
+
+            case "pemerataanSmp":
+                return data["Jumlah Siswa SMP"] / (penduduk[nama]?.SMP || 1);
+
+            case "pemerataanSma":
+                return data["Jumlah Siswa SMA"] / (penduduk[nama]?.SMA || 1);
+
+            case "guruSd":
+                return data["Jumlah Guru SD"];
+
+            case "guruSmp":
+                return data["Jumlah Guru SMP"];
+
+            case "guruSma":
+                return data["Jumlah Guru SMA"];
+
+            default:
+                return 0;
+        }
+    };
+
+    const getColorByMetric = (value: number) => {
+        switch (activeMetric) {
+            case "beban":
+                if (value > 21) return "#08306b";
+                if (value > 19) return "#2171b5";
+                if (value > 17) return "#6baed6";
+                return "#c6dbef";
+
+            case "sd":
+                if (value > 30) return "#08306b";
+                if (value > 20) return "#2171b5";
+                if (value > 10) return "#6baed6";
+                return "#c6dbef";
+                
+            case "smp":
+                if (value > 14) return "#08306b";
+                if (value > 10) return "#2171b5";
+                if (value > 6) return "#6baed6";
+                return "#c6dbef";
+                
+            case "sma":
+                if (value > 8) return "#08306b";
+                if (value > 5) return "#2171b5";
+                if (value > 2) return "#6baed6";
+                return "#c6dbef";
+
+            case "guruSd":
+                if (value > 500) return "#08306b";
+                if (value > 400) return "#2171b5";
+                if (value > 250) return "#6baed6";
+                return "#c6dbef";
+
+            case "guruSmp":
+            if (value > 250) return "#08306b";
+            if (value > 180) return "#2171b5";
+            if (value > 120) return "#6baed6";
+            return "#c6dbef";
+
+            case "guruSma":
+                if (value > 200) return "#08306b";
+                if (value > 120) return "#2171b5";
+                if (value > 60) return "#6baed6";
+                return "#c6dbef";
+
+            case "pemerataan":
+                if (value < 0.8) return "#d73027";
+                if (value < 1.2) return "#fee08b";
+                return "#1a9850";
+
+            default:
+                return "#c6dbef";
+        }
+    };
 
     return (
         <>
-            <DropDownPanel selected={selected} />
-            <InfoPanel selected={selected} />
-            <MapContainer center={[-7.27544, 112.74463] as any} zoom={12} style={{ height: "100%", width: "100%" }}>
+            <DropDownPanel setActiveMetric={setActiveMetric} />
+            <InfoPanel selected={selected}/>
+            <MapContainer center={[-7.27544, 112.74463] as any} zoom={12} zoomControl={false} style={{ height: "100%", width: "100%" }}>
                 <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" attribution="&copy; OpenStreetMap" />
-                {geoData && <GeoJSON key={selected?.nama || "default"} data={geoData} style={style} onEachFeature={onEachFeature} />}
+                {geoData && <GeoJSON key={activeMetric + (selected?.nama || "")} data={geoData} style={style} onEachFeature={onEachFeature} />}
+                <ZoomControl position="bottomright" />
             </MapContainer>
         </>
     );
