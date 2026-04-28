@@ -39,7 +39,6 @@ interface UmurData {
 }
 
 export const EducationDiagram: React.FC = () => {
-  // State default diset ke salah satu menu, misalnya "Pemerataan Pendidikan"
   const [viewMode, setViewMode] = useState<string>("pemerataan");
 
   const chartData = useMemo(() => {
@@ -50,25 +49,23 @@ export const EducationDiagram: React.FC = () => {
       const pd = dataPendidikanTyped[kecamatan];
       const ud = dataUmurTyped[kecamatan]; 
       
-      // Memasukkan SEMUA data yang dibutuhkan oleh menu ke dalam chartData
       return {
         kecamatan,
         bebanKerja: pd['Beban Kerja'],
         sekolahSD: pd['Jumlah Sekolah SD'],
         sekolahSMP: pd['Jumlah Sekolah SMP'],
-        sekolahSMA: pd['Jumah Sekolah SMA'], // Typo bawaan dari interface kamu
+        sekolahSMA: pd['Jumah Sekolah SMA'], 
         guruSD: pd['Jumlah Guru SD'],
         guruSMP: pd['Jumlah Guru SMP'],
         guruSMA: pd['Jumlah Guru SMA'],
-        umurSD: ud ? ud['SD'] : 0,   // Identik dengan usia 7-12 tahun
-        umurSMP: ud ? ud['SMP'] : 0, // Identik dengan usia 13-15 tahun
-        umurSMA: ud ? ud['SMA'] : 0  // Identik dengan usia 16-18 tahun
+        umurSD: ud ? ud['SD'] : 0,   
+        umurSMP: ud ? ud['SMP'] : 0, 
+        umurSMA: ud ? ud['SMA'] : 0 
       };
     });
   }, []);
 
   const renderChart = () => {
-    // 1. Line Chart khusus untuk Beban Kerja
     if (viewMode === "beban_kerja") {
       return (
         <LineChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 100 }}>
@@ -82,7 +79,6 @@ export const EducationDiagram: React.FC = () => {
       );
     }
 
-    // 2. Bar Chart untuk semua menu lainnya
     return (
       <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 100 }}>
         <CartesianGrid strokeDasharray="3 3" />
