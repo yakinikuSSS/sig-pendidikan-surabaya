@@ -109,15 +109,15 @@
         "Jumlah Sekolah SMP": 17,
         "Jumah Sekolah SMA": 14,
         "Total Sekolah": 60,
-        "Jumlah Siswa SD": 340,
-        "Jumlah Siswa SMP": 680,
+        "Jumlah Siswa SD": 8755,
+        "Jumlah Siswa SMP": 5369,
         "Jumlah Siswa SMA": 5141,
-        "Total Siswa": 6161,
+        "Total Siswa": 19265,
         "Jumlah Guru SD": 455,
         "Jumlah Guru SMP": 301,
         "Jumlah Guru SMA": 280,
         "Total Guru": 1036,
-        "Beban Kerja": 5.946911196911197
+        "Beban Kerja": 18.595559845559844
     },
     "Tandes": {
         "Jumlah Sekolah SD": 31,
@@ -140,14 +140,14 @@
         "Jumah Sekolah SMA": 11,
         "Total Sekolah": 49,
         "Jumlah Siswa SD": 8894,
-        "Jumlah Siswa SMP": 504,
+        "Jumlah Siswa SMP": 5040,
         "Jumlah Siswa SMA": 4873,
-        "Total Siswa": 14271,
+        "Total Siswa": 18807,
         "Jumlah Guru SD": 478,
         "Jumlah Guru SMP": 315,
         "Jumlah Guru SMA": 298,
         "Total Guru": 1091,
-        "Beban Kerja": 13.080659945004584
+        "Beban Kerja": 17.238313473877177
     },
     "Kenjeran": {
         "Jumlah Sekolah SD": 40,
@@ -184,15 +184,15 @@
         "Jumlah Sekolah SMP": 16,
         "Jumah Sekolah SMA": 10,
         "Total Sekolah": 58,
-        "Jumlah Siswa SD": 2491,
+        "Jumlah Siswa SD": 8782,
         "Jumlah Siswa SMP": 4537,
         "Jumlah Siswa SMA": 2757,
-        "Total Siswa": 9785,
+        "Total Siswa": 16076,
         "Jumlah Guru SD": 509,
         "Jumlah Guru SMP": 280,
         "Jumlah Guru SMA": 179,
         "Total Guru": 968,
-        "Beban Kerja": 10.118801652892561
+        "Beban Kerja": 16.607438016528924
     },
     "Simokerto": {
         "Jumlah Sekolah SD": 24,
@@ -259,15 +259,15 @@
         "Jumlah Sekolah SMP": 11,
         "Jumah Sekolah SMA": 3,
         "Total Sekolah": 30,
-        "Jumlah Siswa SD": 319,
+        "Jumlah Siswa SD": 5170,
         "Jumlah Siswa SMP": 2471,
         "Jumlah Siswa SMA": 1163,
-        "Total Siswa": 3953,
+        "Total Siswa": 8804,
         "Jumlah Guru SD": 278,
         "Jumlah Guru SMP": 158,
         "Jumlah Guru SMA": 72,
         "Total Guru": 508,
-        "Beban Kerja": 7.781496062992126
+        "Beban Kerja": 17.330708661417322
     },
     "Dukuh Pakis": {
         "Jumlah Sekolah SD": 22,
@@ -306,13 +306,13 @@
         "Total Sekolah": 54,
         "Jumlah Siswa SD": 6283,
         "Jumlah Siswa SMP": 4012,
-        "Jumlah Siswa SMA": 1020,
-        "Total Siswa": 11315,
+        "Jumlah Siswa SMA": 2604,
+        "Total Siswa": 12899,
         "Jumlah Guru SD": 376,
         "Jumlah Guru SMP": 267,
         "Jumlah Guru SMA": 176,
         "Total Guru": 819,
-        "Beban Kerja": 13.815628815628816
+        "Beban Kerja": 15.749694749694749
     },
     "Wonocolo": {
         "Jumlah Sekolah SD": 19,
@@ -424,15 +424,15 @@
         "Jumlah Sekolah SMP": 9,
         "Jumah Sekolah SMA": 9,
         "Total Sekolah": 30,
-        "Jumlah Siswa SD": 2127,
+        "Jumlah Siswa SD": 4701,
         "Jumlah Siswa SMP": 3369,
         "Jumlah Siswa SMA": 2642,
-        "Total Siswa": 8138,
+        "Total Siswa": 10712,
         "Jumlah Guru SD": 253,
         "Jumlah Guru SMP": 241,
         "Jumlah Guru SMA": 158,
         "Total Guru": 652,
-        "Beban Kerja": 12.48159509202454
+        "Beban Kerja": 16.429447852760735
     },
     "Bulak": {
         "Jumlah Sekolah SD": 18,
@@ -440,14 +440,14 @@
         "Jumah Sekolah SMA": 2,
         "Total Sekolah": 26,
         "Jumlah Siswa SD": 5298,
-        "Jumlah Siswa SMP": 620,
+        "Jumlah Siswa SMP": 2321,
         "Jumlah Siswa SMA": 1501,
-        "Total Siswa": 7419,
+        "Total Siswa": 9120,
         "Jumlah Guru SD": 261,
         "Jumlah Guru SMP": 111,
         "Jumlah Guru SMA": 70,
         "Total Guru": 442,
-        "Beban Kerja": 16.785067873303166
+        "Beban Kerja": 20.63348416289593
     },
     "Asemrowo": {
         "Jumlah Sekolah SD": 17,
