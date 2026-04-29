@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import type { FeatureCollection } from "geojson";
 import InfoPanel from "../ui/InfoPanel";
 import DropDownPanel from "../ui/DropDownPanel";
+import RankPanel from "../ui/RankPanel";
 import { ZoomControl } from "react-leaflet";
 
 export default function MapView() {
@@ -37,7 +38,7 @@ export default function MapView() {
     }, []);
 
     useEffect(() => {
-        fetch("/data/data_umur.json")
+                    fetch("/data/data_umur.json")
             .then((res) => {
                 if (!res.ok) {
                     throw new Error(`Gagal memuat data umur: ${res.status} ${res.statusText}`);
@@ -55,7 +56,7 @@ export default function MapView() {
                 }
                 return res.json();
             })
-            .then(data => setPenduduk(data));
+            .then(data => setPendudukData(data));
     }, []);
 
     const onEachFeature = (feature: any, layer: any) => {
@@ -172,13 +173,13 @@ export default function MapView() {
         }
     };
 
-const getColorByMetric = (value: number) => {
-    switch (activeMetric) {
-        case "sd":
-            if (value > 45) return "#08306b";
-            if (value > 30) return "#2171b5";
-            if (value > 15) return "#6baed6";
-            return "#c6dbef";
+    const getColorByMetric = (value: number) => {
+        switch (activeMetric) {
+            case "sd":
+                if (value > 45) return "#08306b";
+                if (value > 30) return "#2171b5";
+                if (value > 15) return "#6baed6";
+                return "#c6dbef";
 
             case "sd":
                 if (value > 30) return "#08306b";
@@ -198,11 +199,11 @@ const getColorByMetric = (value: number) => {
                 if (value > 2) return "#6baed6";
                 return "#c6dbef";
 
-        case "sma":
-            if (value > 15) return "#08306b";
-            if (value > 10) return "#2171b5";
-            if (value > 5) return "#6baed6";
-            return "#c6dbef";
+            case "sma":
+                if (value > 15) return "#08306b";
+                if (value > 10) return "#2171b5";
+                if (value > 5) return "#6baed6";
+                return "#c6dbef";
 
             case "guruSmp":
                 if (value > 250) return "#08306b";
@@ -210,51 +211,56 @@ const getColorByMetric = (value: number) => {
                 if (value > 120) return "#6baed6";
                 return "#c6dbef";
 
-        case "guruSma":
-            if (value > 400) return "#08306b";
-            if (value > 200) return "#2171b5";
-            if (value > 100) return "#6baed6";
-            return "#c6dbef";
+            case "guruSma":
+                if (value > 400) return "#08306b";
+                if (value > 200) return "#2171b5";
+                if (value > 100) return "#6baed6";
+                return "#c6dbef";
 
-        case "usiaSd":
-            if (value > 15000) return "#08306b";
-            if (value > 10000) return "#2171b5";
-            if (value > 7000) return "#6baed6";
-            return "#c6dbef";
+            case "usiaSd":
+                if (value > 15000) return "#08306b";
+                if (value > 10000) return "#2171b5";
+                if (value > 7000) return "#6baed6";
+                return "#c6dbef";
 
-        case "usiaSmp":
-            if (value > 7000) return "#08306b";
-            if (value > 5000) return "#2171b5";
-            if (value > 3000) return "#6baed6";
-            return "#c6dbef";
+            case "usiaSmp":
+                if (value > 7000) return "#08306b";
+                if (value > 5000) return "#2171b5";
+                if (value > 3000) return "#6baed6";
+                return "#c6dbef";
 
-        case "usiaSma":
-            if (value > 7000) return "#08306b";
-            if (value > 5000) return "#2171b5";
-            if (value > 3000) return "#6baed6";
-            return "#c6dbef";
+            case "usiaSma":
+                if (value > 7000) return "#08306b";
+                if (value > 5000) return "#2171b5";
+                if (value > 3000) return "#6baed6";
+                return "#c6dbef";
 
-        case "beban":
-            if (value > 20) return "#08306b";
-            if (value > 17) return "#2171b5";
-            if (value > 12) return "#6baed6";
-            return "#c6dbef";
+            case "beban":
+                if (value > 20) return "#08306b";
+                if (value > 17) return "#2171b5";
+                if (value > 12) return "#6baed6";
+                return "#c6dbef";
 
-        case "pemerataan":
-            if (value >= 1.1) return "#08306b";
-            if (value > 0.8) return "#2171b5";
-            if (value > 0.6) return "#6baed6";
-            return "#c6dbef";
+            case "pemerataan":
+                if (value >= 1.1) return "#08306b";
+                if (value > 0.8) return "#2171b5";
+                if (value > 0.6) return "#6baed6";
+                return "#c6dbef";
 
-        default:
-            return "#c6dbef";
+            default:
+                return "#c6dbef";
+        }
+    };
+
+    const handleSelectFromRank = (nama: string, data: any) => {
+        setSelected({ nama, data });
     }
-};
 
     return (
         <>
             <DropDownPanel setActiveMetric={setActiveMetric} />
             <InfoPanel selected={selected} />
+            <RankPanel pendidikan={pendidikan} pendudukData={pendudukData} activeMetric={activeMetric} onSelectKecamatan={handleSelectFromRank} />
             <MapContainer center={[-7.27544, 112.74463] as any} zoom={12} zoomControl={false} style={{ height: "100%", width: "100%" }}>
                 <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" attribution="&copy; OpenStreetMap" />
                 {geoData && <GeoJSON key={activeMetric + (selected?.nama || "")} data={geoData} style={style} onEachFeature={onEachFeature} />}
