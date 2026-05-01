@@ -6,7 +6,6 @@ function App() {
   return (
     <DashboardLayout>
       <MapView />
-      <EducationDiagram />
     </DashboardLayout>
   );
 }
