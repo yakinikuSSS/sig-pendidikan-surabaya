@@ -1,6 +1,5 @@
 import DashboardLayout from "./components/layout/DashboardLayout.tsx";
-import MapView from "./components/map/MapView.tsx";
-import { EducationDiagram } from './components/diagram/EducationDiagram';
+import MapView from "./alternative/map/MapView.tsx";
 
 function App() {
   return (
