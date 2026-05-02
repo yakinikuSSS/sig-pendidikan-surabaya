@@ -5,6 +5,7 @@ import InfoPanel from "../ui/InfoPanel";
 import DropDownPanel from "../ui/DropDownPanel";
 import RankPanel from "../ui/RankPanel";
 import { ZoomControl } from "react-leaflet";
+import { EducationDiagram } from "../diagram/EducationDiagram";
 
 export default function MapView() {
     const [geoData, setGeoData] = useState<FeatureCollection | null>(null);
@@ -260,12 +261,19 @@ export default function MapView() {
         <>
             <DropDownPanel setActiveMetric={setActiveMetric} />
             <InfoPanel selected={selected} />
+
+            
+
             <RankPanel pendidikan={pendidikan} pendudukData={pendudukData} activeMetric={activeMetric} onSelectKecamatan={handleSelectFromRank} />
             <MapContainer center={[-7.27544, 112.74463] as any} zoom={12} zoomControl={false} style={{ height: "100%", width: "100%" }}>
                 <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" attribution="&copy; OpenStreetMap" />
                 {geoData && <GeoJSON key={activeMetric + (selected?.nama || "")} data={geoData} style={style} onEachFeature={onEachFeature} />}
                 <ZoomControl position="bottomright" />
             </MapContainer>
+            
+            <div style={{ height: "300px", width: "100%", background: "#1a1a1a" }}>
+                <EducationDiagram activeMetric={activeMetric} />
+            </div>
         </>
     );
 }

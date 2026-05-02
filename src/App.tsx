@@ -1,5 +1,5 @@
 import DashboardLayout from "./components/layout/DashboardLayout.tsx";
-import MapView from "./components/map/MapView.tsx";
+import MapView from "./alternative/map/MapView.tsx";
 
 function App() {
   return (
