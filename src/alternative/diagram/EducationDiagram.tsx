@@ -11,7 +11,6 @@ interface PendidikanData {
     "Jumlah Sekolah SD": number;
     "Jumlah Sekolah SMP": number;
     "Jumlah Sekolah SMA"?: number;
-    "Jumah Sekolah SMA"?: number;
     "Total Sekolah": number;
     "Jumlah Siswa SD": number;
     "Jumlah Siswa SMP": number;
@@ -42,7 +41,7 @@ const metricLabels: Record<string, string> = {
     smp:        "Jumlah SMP / MTs",
     sma:        "Jumlah SMA / SMK / MA",
     guruSd:     "Jumlah Guru SD",
-    guruSmp:    "Jumlah Guru SMP",
+    guruSmp:    "Jumlah Guru SMP", 
     guruSma:    "Jumlah Guru SMA",
     usiaSd:     "Penduduk Usia SD (7–12 th)",
     usiaSmp:    "Penduduk Usia SMP (13–15 th)",
@@ -70,7 +69,7 @@ export const EducationDiagram: React.FC<Props> = ({ activeMetric }) => {
             bebanKerja:  pd[kecamatan]['Beban Kerja'],
             sekolahSD:   pd[kecamatan]['Jumlah Sekolah SD'],
             sekolahSMP:  pd[kecamatan]['Jumlah Sekolah SMP'],
-            sekolahSMA:  pd[kecamatan]['Jumlah Sekolah SMA'] ?? pd[kecamatan]['Jumah Sekolah SMA'] ?? 0,
+            sekolahSMA:  pd[kecamatan]['Jumlah Sekolah SMA'] ?? pd[kecamatan]['Jumlah Sekolah SMA'] ?? 0,
             guruSD:      pd[kecamatan]['Jumlah Guru SD'],
             guruSMP:     pd[kecamatan]['Jumlah Guru SMP'],
             guruSMA:     pd[kecamatan]['Jumlah Guru SMA'],

@@ -26,7 +26,7 @@ export default function MapView() {
     }, []);
 
     useEffect(() => {
-        fetch("/data/data_penduduk.json")
+        fetch("/data/data_umur.json")
             .then(res => res.json())
             .then(data => setPendudukData(data));
     }, []);
@@ -56,21 +56,32 @@ export default function MapView() {
     const getValue = (nama: string) => {
         const data = pendidikan[nama];
         const penduduk = pendudukData[nama];
-        if (!data) return 0;
 
         switch (activeMetric) {
-            case "beban": return data["Beban Kerja"] || 0;
-            case "pemerataan": return data["Total Siswa"] / (penduduk?.Total || 1);
-            case "sd": return data["Jumlah Sekolah SD"] || 0;
-            case "smp": return data["Jumlah Sekolah SMP"] || 0;
-            case "sma": return data["Jumlah Sekolah SMA"] || 0;
-            case "guruSd": return data["Jumlah Guru SD"] || 0;
-            case "guruSmp": return data["Jumlah Guru SMP"] || 0;
-            case "guruSma": return data["Jumlah Guru SMA"] || 0;
-            case "usiaSd": return penduduk?.SD || 0;
-            case "usiaSmp": return penduduk?.SMP || 0;
-            case "usiaSma": return penduduk?.SMA || 0;
-            default: return 0;
+            case "usiaSd":
+                return penduduk?.SD || 0;
+            case "usiaSmp":
+                return penduduk?.SMP || 0;
+            case "usiaSma":
+                return penduduk?.SMA || 0;
+            case "beban":
+                return data?.["Beban Kerja"] || 0;
+            case "pemerataan":
+                return (data?.["Total Siswa"] || 0) / (penduduk?.Total || 1);
+            case "sd":
+                return data?.["Jumlah Sekolah SD"] || 0;
+            case "smp":
+                return data?.["Jumlah Sekolah SMP"] || 0;
+            case "sma":
+                return data?.["Jumlah Sekolah SMA"] || 0;
+            case "guruSd":
+                return data?.["Jumlah Guru SD"] || 0;
+            case "guruSmp":
+                return data?.["Jumlah Guru SMP"] || 0;
+            case "guruSma":
+                return data?.["Jumlah Guru SMA"] || 0;
+            default:
+                return 0;
         }
     };
 
