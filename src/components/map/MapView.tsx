@@ -129,9 +129,8 @@ export default function MapView() {
                 return data["Beban Kerja"];
 
             case "pemerataan":
-                const siswa = data["Total Siswa"];
-                const totalPenduduk = penduduk?.Total || 1;
-                return siswa / totalPenduduk;
+                if (!data || !penduduk) return 0;
+                return (data["Total Siswa"] / penduduk.Total) * 1000;
 
             case "sd":
                 return data["Jumlah Sekolah SD"];
@@ -243,9 +242,10 @@ export default function MapView() {
                 return "#c6dbef";
 
             case "pemerataan":
-                if (value >= 1.1) return "#08306b";
-                if (value > 0.8) return "#2171b5";
-                if (value > 0.6) return "#6baed6";
+                if (value > 8) return "#08306b";
+                if (value > 5) return "#2171b5";
+                if (value > 3) return "#6baed6";
+                if (value > 1) return "#9ecae1";
                 return "#c6dbef";
 
             default:
