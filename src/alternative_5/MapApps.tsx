@@ -106,9 +106,6 @@ export default function MapApps() {
     <div className="alt5-app">
       <header className="alt5-header">
         <div className="alt5-header-brand">
-          <div className="alt5-header-mark" aria-hidden="true">
-            <span />
-          </div>
           <h1>Peta Pendidikan Surabaya</h1>
         </div>
 

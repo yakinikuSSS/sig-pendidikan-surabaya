@@ -44,10 +44,6 @@
   white-space: nowrap;
 }
 
-.alt5-header h1::before {
-  content: "🗺️ ";
-}
-
 .alt5-header-mark {
   width: 34px;
   height: 34px;
