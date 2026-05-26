@@ -1,10 +1,10 @@
 import DashboardLayout from "./components/layout/DashboardLayout.tsx";
-import MapView from "./alternative/map/MapView.tsx";
+import MapApps from "./alternative_5/MapApps.tsx";
 
 function App() {
   return (
     <DashboardLayout>
-      <MapView />
+      <MapApps />
     </DashboardLayout>
   );
 }
