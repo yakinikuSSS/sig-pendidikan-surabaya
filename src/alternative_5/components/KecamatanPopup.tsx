@@ -68,7 +68,7 @@ export function KecamatanPopup({
       </header>
 
       <section className="alt5-popup-section">
-        <h3>Pemerataan Pendidikan</h3>
+        <h3>Ketersediaan Sekolah (per 1rb Anak)</h3>
         <div className="alt5-chart-wrap">
           <ResponsiveContainer width="100%" height={126}>
             <BarChart
@@ -79,7 +79,7 @@ export function KecamatanPopup({
               <CartesianGrid horizontal={false} stroke="#e2e8f0" />
               <XAxis type="number" domain={[0, coverageDomainMax]} hide />
               <YAxis type="category" dataKey="jenjang" axisLine={false} tickLine={false} width={46} />
-              <Tooltip formatter={(value) => [`${formatNumber(Number(value), 1)}%`, "Coverage"]} />
+              <Tooltip formatter={(value) => [`${formatNumber(Number(value), 2)}`, "Sekolah / 1rb anak"]} />
               <Bar dataKey="ratio" radius={[0, 5, 5, 0]} barSize={18}>
                 {metrics.coverage.map((item, index) => (
                   <Cell key={item.jenjang} fill={coverageColors[index]} />
@@ -87,7 +87,7 @@ export function KecamatanPopup({
                 <LabelList
                   dataKey="ratio"
                   position="right"
-                  formatter={(value) => `${formatNumber(Number(value || 0), 1)}%`}
+                  formatter={(value) => `${formatNumber(Number(value || 0), 2)}`}
                   className="alt5-chart-label"
                 />
               </Bar>

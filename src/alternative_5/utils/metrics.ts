@@ -51,9 +51,9 @@ const TEAL_SCALE = ["#ccfbf1", "#99f6e4", "#5eead4", "#14b8a6", "#0f766e"];
 export const METRIC_OPTIONS: MetricMeta[] = [
   {
     key: "pemerataan",
-    label: "Pemerataan Pendidikan",
-    shortLabel: "Pemerataan",
-    unit: "%",
+    label: "Pemerataan (Ketersediaan Sekolah)",
+    shortLabel: "Ketersediaan",
+    unit: "sekolah/1rb anak",
     higherIsBetter: true,
     colors: GREEN_SCALE,
   },
@@ -69,7 +69,7 @@ export const METRIC_OPTIONS: MetricMeta[] = [
     key: "rasioSekolah",
     label: "Rasio Sekolah",
     shortLabel: "Rasio Sekolah",
-    unit: "sekolah/1.000 anak",
+    unit: "sekolah/1rb anak",
     higherIsBetter: true,
     colors: TEAL_SCALE,
   },
@@ -122,18 +122,14 @@ function buildLookup<T>(data: Record<string, T>) {
   }, {});
 }
 
-function ratio(numerator: number, denominator: number) {
-  return denominator > 0 ? (numerator / denominator) * 100 : 0;
-}
-
 function computeOne(name: string, pendidikan: PendidikanRecord, umur: UmurRecord): KecamatanMetrics {
-  const ratio_SD = ratio(pendidikan["Jumlah Siswa SD"], umur.SD);
-  const ratio_SMP = ratio(pendidikan["Jumlah Siswa SMP"], umur.SMP);
-  const ratio_SMA = ratio(pendidikan["Jumlah Siswa SMA"], umur.SMA);
-  const ratio_total = ratio(pendidikan["Total Siswa"], umur.Total);
+  const ratio_SD = umur.SD > 0 ? (pendidikan["Jumlah Sekolah SD"] / umur.SD) * 1000 : 0;
+  const ratio_SMP = umur.SMP > 0 ? (pendidikan["Jumlah Sekolah SMP"] / umur.SMP) * 1000 : 0;
+  const ratio_SMA = umur.SMA > 0 ? (pendidikan["Jumlah Sekolah SMA"] / umur.SMA) * 1000 : 0;
+  const ratio_total = umur.Total > 0 ? (pendidikan["Total Sekolah"] / umur.Total) * 1000 : 0;
   const beban_kerja =
     pendidikan["Beban Kerja"] || pendidikan["Total Siswa"] / Math.max(1, pendidikan["Total Guru"]);
-  const sekolah_ratio = umur.Total > 0 ? pendidikan["Total Sekolah"] / (umur.Total / 1000) : 0;
+  const sekolah_ratio = ratio_total;
 
   return {
     name,
