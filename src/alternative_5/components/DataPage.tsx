@@ -24,10 +24,10 @@ const columns = [
   "Usia SMP",
   "Usia SMA",
   "Total Usia",
-  "Coverage SD",
-  "Coverage SMP",
-  "Coverage SMA",
-  "Coverage Total",
+  "Ketersediaan SD",
+  "Ketersediaan SMP",
+  "Ketersediaan SMA",
+  "Ketersediaan Total",
   "Beban Kerja",
   "Rasio Sekolah",
 ] as const;
@@ -109,10 +109,10 @@ export function DataPage({ metricsByName }: DataPageProps) {
                   <td>{formatNumber(row.umur.SMP)}</td>
                   <td>{formatNumber(row.umur.SMA)}</td>
                   <td>{formatNumber(row.umur.Total)}</td>
-                  <td>{formatNumber(row.ratio_SD, 1)}%</td>
-                  <td>{formatNumber(row.ratio_SMP, 1)}%</td>
-                  <td>{formatNumber(row.ratio_SMA, 1)}%</td>
-                  <td>{formatNumber(row.ratio_total, 1)}%</td>
+                  <td>{formatNumber(row.ratio_SD, 2)}</td>
+                  <td>{formatNumber(row.ratio_SMP, 2)}</td>
+                  <td>{formatNumber(row.ratio_SMA, 2)}</td>
+                  <td>{formatNumber(row.ratio_total, 2)}</td>
                   <td>{formatNumber(row.beban_kerja, 1)}</td>
                   <td>{formatNumber(row.sekolah_ratio, 2)}</td>
                 </tr>

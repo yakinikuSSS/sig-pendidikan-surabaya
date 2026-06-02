@@ -24,24 +24,24 @@ const sourceCards = [
 
 const formulaCards = [
   {
-    title: "Coverage SD",
-    formula: "Jumlah Siswa SD / Penduduk Usia SD x 100",
-    example: "Mengukur seberapa besar siswa SD dibanding anak usia SD di kecamatan tersebut.",
+    title: "Ketersediaan SD",
+    formula: "Jumlah Sekolah SD / Penduduk Usia SD x 1.000",
+    example: "Mengukur ketersediaan unit sekolah SD untuk setiap 1.000 anak usia SD.",
   },
   {
-    title: "Coverage SMP",
-    formula: "Jumlah Siswa SMP / Penduduk Usia SMP x 100",
-    example: "Dipakai untuk membaca pemerataan layanan pada jenjang SMP.",
+    title: "Ketersediaan SMP",
+    formula: "Jumlah Sekolah SMP / Penduduk Usia SMP x 1.000",
+    example: "Mengukur ketersediaan unit sekolah SMP untuk setiap 1.000 anak usia SMP.",
   },
   {
-    title: "Coverage SMA",
-    formula: "Jumlah Siswa SMA / Penduduk Usia SMA x 100",
-    example: "Dipakai untuk membaca pemerataan layanan pada jenjang SMA.",
+    title: "Ketersediaan SMA",
+    formula: "Jumlah Sekolah SMA / Penduduk Usia SMA x 1.000",
+    example: "Mengukur ketersediaan unit sekolah SMA untuk setiap 1.000 anak usia SMA.",
   },
   {
-    title: "Pemerataan Pendidikan",
-    formula: "Total Siswa / Total Penduduk Usia Sekolah x 100",
-    example: "Dipakai sebagai layer utama pemerataan. Nilai lebih tinggi berarti coverage total lebih besar.",
+    title: "Pemerataan (Total)",
+    formula: "Total Sekolah / Total Penduduk Usia Sekolah x 1.000",
+    example: "Indikator utama pemerataan infrastruktur pendidikan per 1.000 anak usia sekolah.",
   },
   {
     title: "Beban Kerja Guru",
@@ -51,15 +51,15 @@ const formulaCards = [
   {
     title: "Rasio Sekolah",
     formula: "Total Sekolah / (Total Penduduk Usia Sekolah / 1.000)",
-    example: "Mengukur jumlah sekolah yang tersedia untuk setiap 1.000 anak usia sekolah.",
+    example: "Identik dengan rumus pemerataan, mengukur unit sekolah per 1.000 anak.",
   },
 ];
 
 const interpretationRows = [
   {
-    metric: "Pemerataan Pendidikan",
+    metric: "Pemerataan (Ketersediaan)",
     good: "Lebih tinggi",
-    meaning: "Coverage siswa terhadap anak usia sekolah lebih besar.",
+    meaning: "Jumlah sekolah relatif lebih banyak terhadap populasi usia sekolah.",
     map: "Hijau muda ke hijau tua.",
   },
   {
