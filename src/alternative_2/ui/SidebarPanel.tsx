@@ -1,4 +1,3 @@
-import React from "react";
 import { BLUE_PALETTE } from "../utils";
 
 interface Props {

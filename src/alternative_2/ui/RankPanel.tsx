@@ -1,4 +1,3 @@
-import React from "react";
 import { calculateMetricValue, BLUE_PALETTE } from "../utils";
 
 interface Props {
