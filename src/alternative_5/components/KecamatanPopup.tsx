@@ -44,8 +44,8 @@ export function KecamatanPopup({
   onClose,
 }: KecamatanPopupProps) {
   const status = bebanStatus(metrics.beban_kerja);
-  const maxCoverage = Math.max(100, ...metrics.coverage.map((item) => item.ratio));
-  const coverageDomainMax = Math.ceil((maxCoverage * 1.18) / 10) * 10;
+  const maxCoverage = Math.max(...metrics.coverage.map((item) => item.ratio));
+  const coverageDomainMax = Math.ceil(maxCoverage * 1.15);
   const maxBeban = Math.max(24, metrics.beban_kerja, cityAverageBeban) * 1.12;
   const bebanPercent = Math.min(100, (metrics.beban_kerja / maxBeban) * 100);
   const cityAveragePercent = Math.min(100, (cityAverageBeban / maxBeban) * 100);
